@@ -6,18 +6,35 @@ class Room(object):
         self.pickups = ['key']
         self.verbs = ['pickup']
         self.exits = []
+        self.exit_ref = []
 
     def is_verb_allowed(self, verb):
         if verb in self.verbs:
             return True 
         return False
 
-    def enact_verb(self, verb, content):
+    def enact_verb(self, verb, content, user_objs):
+        cont = ""
+        for c in content:
+            cont += " " + c
+        cont = cont.strip()
+        print("cont is " + cont)
+
         if verb == "pickup":
-            if content == "key":
-                return "Picked up the key"
+            if cont in self.pickups:
+                new_pickups = []
+                ret = "Cannot pick up that object"
+                for p in self.pickups:
+                    if p == cont:
+                        ret = cont
+                    else:
+                        new_pickups.append(p)
+                self.pickups = new_pickups
+                return ret
             else:
-                return "Cannot pickup the {}".format(content)
+                return "Cannot pickup the {}".format(cont)
+        elif verb in self.verbs and verb == "use" and cont=="key with fridge" and "key" in user_objs:
+            return "Congratulations you have won the game, you managed to get another beer from the locked fridge."
         else:
             return "Unable to process command {}".format(verb)
 
@@ -28,11 +45,30 @@ class Room(object):
             return "The only exit is to the {}".format(self.exits[0])
         else:
             ret = "There are exits to the "
-            for e, k in self.exits:
-                if k != len(self.exits)-1:
-                    ret += e
+            for ind, val in enumerate(self.exits):
+                if ind != len(self.exits)-1:
+                    ret += val
                 else:
-                    ret += " and {}".format(e)
+                    ret += " and {}".format(val)
             return ret
 
+    def process_move(self, dir):
+        if dir in self.exits:
+            print(self.exit_ref)
+            for ind,val in enumerate(self.exits):
+                if dir == val:
+                    return self.exit_ref[ind]
+        else: 
+            return None
             
+    def get_objects(self):
+        if len(self.pickups)==0:
+            return "There is nothing here of interest."
+        elif len(self.pickups)==1:
+            return "There is a {} on the floor".format(self.pickups[0])
+        else:
+            ret = "The following objects are here: "
+            for p in self.pickups:
+                ret += p
+               
+            return ret

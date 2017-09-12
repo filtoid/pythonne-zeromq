@@ -15,6 +15,8 @@ def process_request(msg, game):
     ret = ""
     if msg == "details":
         ret = "This server is running version {} on port {}".format(VERSION, game.port)
+    elif msg == "examine":
+        ret = "{}\n{}\n{}\n{}".format(game.cur_room.name, game.cur_room.desc, game.get_exits(), game.get_objects())
     else:
         ret = game.process_request(msg)
     return ret
