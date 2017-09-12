@@ -23,7 +23,7 @@ class Game(object):
         return None
 
     def process_request(self, msg):
-        dir_list = ["North", "East", "South", "West", "N", "E", "S", "W"]
+        dir_list = ["North", "East", "South", "West", "N", "E", "S", "W", "south", "north", "east", "west"]
 
         verb = msg.split(" ")[0]
         if verb in self.cur_room.verbs:
