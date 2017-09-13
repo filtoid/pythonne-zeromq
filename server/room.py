@@ -1,10 +1,10 @@
 class Room(object):
 
     def __init__(self):
-        self.name = "Main Room"
-        self.desc = "This room is sparkly"
-        self.pickups = ['key']
-        self.verbs = ['pickup']
+        self.name = "Room Name Has Not Been Replaced"
+        self.desc = "Room Description Has Not Been Replaced"
+        self.pickups = []
+        self.verbs = []
         self.exits = []
         self.exit_ref = []
 
