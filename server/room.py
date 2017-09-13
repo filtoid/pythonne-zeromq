@@ -18,7 +18,6 @@ class Room(object):
         for c in content:
             cont += " " + c
         cont = cont.strip()
-        print("cont is " + cont)
 
         if verb == "pickup":
             if cont in self.pickups:
