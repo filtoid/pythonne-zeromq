@@ -25,9 +25,12 @@ class Game(object):
     def process_request(self, msg):
         dir_list = ["North", "East", "South", "West", "N", "E", "S", "W", "south", "north", "east", "west"]
 
+        if msg in self.cur_room.auto_responses:
+            return self.cur_room.auto_responses[msg]
+
         verb = msg.split(" ")[0]
         if verb in self.cur_room.verbs:
-            if verb == "pickup":
+            if verb == "pickup" or verb == "get":
                 ret = self.cur_room.enact_verb(verb, msg.split(" ")[1:], self.user_objs)
                 if len(ret.split(" ")) > 1:
                     return ret

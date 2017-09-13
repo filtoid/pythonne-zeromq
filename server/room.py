@@ -7,6 +7,9 @@ class Room(object):
         self.verbs = []
         self.exits = []
         self.exit_ref = []
+        self.auto_responses = {
+            "jump around": "You can't jump around you are too thirsty at the moment"
+        }
 
     def is_verb_allowed(self, verb):
         if verb in self.verbs:
@@ -19,7 +22,7 @@ class Room(object):
             cont += " " + c
         cont = cont.strip()
 
-        if verb == "pickup":
+        if verb == "pickup" or verb == "get":
             if cont in self.pickups:
                 new_pickups = []
                 ret = "Cannot pick up that object"

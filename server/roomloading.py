@@ -7,7 +7,10 @@ def load_start():
     room.pickups = []
     room.exits = ['South']
     room.exit_ref = [1]
-
+    room.auto_responses = {
+        "talk to goon": "He ignores you. One of the other drones turns around and says 'ssh'",
+        "get beer": "Ha Ha nice try, you'll need to get one yourself"
+    }
     return room
 
 def load_south():
@@ -15,9 +18,14 @@ def load_south():
     room.name = "Hallway"
     room.desc = "It's a hallway, it stretches off into the distance. You can hear the faint sound of people typing."
     room.pickups = ["key"]
-    room.verbs = ["pickup"]
+    room.verbs = ["pickup", "get"]
     room.exits = ['North', "West"]
     room.exit_ref = [0,2]
+
+    room.auto_responses = {
+        "pick up key": "try using pickup as a single word",
+        "look at key": "It's a key, what do you want, a picture?"
+    }
 
     return room
 
@@ -29,4 +37,11 @@ def load_west():
     room.verbs = ["use"]
     room.exits = ["East"]
     room.exit_ref = [1]
+
+    room.auto_responses = {
+        "open fridge": "It's locked - perhaps you have a key, if not maybe try and find one",
+        "smash fridge": "As easy as it would be for me to just let you smash the place up that's hardly a nice way to go about things",
+        "look at fridge": "It's a fridge, there is beer inside. It is locked though so currently 'no beer for you'"
+    }
+
     return room
